@@ -15,7 +15,8 @@
 
         <p>Har du allerede en bruker kan du logg inn her: <a class="astyle" href="log_inn.php">log inn</a> for å sende din tilbakemeling</p>
         <p>Har du ikke en bruker? Da kan du registrer deg her: <a class="astyle" href="signup.php">registrer bruker</a></p>
-        
+        <p>Admin? Da kan du andre status her: <a class="astyle" href="admin.php">status</a></p>
+
     </div>
 </body>
 

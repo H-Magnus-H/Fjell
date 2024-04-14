@@ -45,26 +45,35 @@
             
             $query = "SELECT p.id, p.kategori, p.status, u.username 
                 FROM problemer AS p 
-                INNER JOIN users AS u ON p.user_id_fk = u.id 
-                WHERE p.user_id_fk = ?";
+                INNER JOIN users AS u ON p.user_id_fk = u.id";
             
             $stmt = $conn->prepare($query);
-            $stmt->bind_param("i", $bruker_id);
             $stmt->execute();
             $stmt->bind_result($saksnummer, $kategori, $status, $username);
 
 
             echo "<table class='styletable'>";
             echo "<tr>";
-            echo "<th>saksnummer</th><th>bruker</th><th>kategori</th><th>status</th>";
+            echo "<th>saksnummer</th><th>bruker</th><th>kategori</th><th>status</th><th>endre status</th>";
             echo "</tr>\n";
 
             while ($stmt->fetch()) {
                 if ($status == "") {
-                $status = "registrert";
+                    $status = "registrert";
                 }
                 echo "<tr>\n";
                 echo "<td>$saksnummer</td><td>$username</td><td>$kategori</td><td>$status</td>";
+                echo "<td>";
+                echo "<form action='includes/oppdater_status.inc.php' method='POST'>";
+                echo "<input type='hidden' name='saksnummer' value='$saksnummer'>";
+                echo "<select name='ny_status'>";
+                echo "<option value='not_fixed'>not fixed</option>";
+                echo "<option value='processesing'>processesing</option>";
+                echo "<option value='fixed'>fixed</option>";
+                echo "</select>";
+                echo "<input type='submit' value='Oppdater'>";
+                echo "</form>";
+                echo "</td>";
                 echo "</tr>\n";
             }
             echo "</table>";
